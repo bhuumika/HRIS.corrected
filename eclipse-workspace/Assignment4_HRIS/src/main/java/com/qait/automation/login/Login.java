@@ -1,8 +1,12 @@
 package com.qait.automation.login;
 
+import java.util.Iterator;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.gargoylesoftware.htmlunit.javascript.host.Set;
 
 import junit.framework.Assert;
 
@@ -15,12 +19,13 @@ public class Login {
 	}
 
 	public void tap() {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-
-			e.printStackTrace();
-		}
+		
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		driver.findElement(By.cssSelector(
 				"#demo-2 > div > div.tabbable.custom-tabs.tabs-left.tabs-animated.flat.flat-all.hide-label-980.shadow.track-url.auto-scroll > ul > li:nth-child(1) > a"))
 				.click();
@@ -68,60 +73,63 @@ public class Login {
 
 	public boolean forgot_password_tab_with_Incorrect_Password(String username, String email) {
 		this.tap();
+		System.out.println("Enter");
 		driver.findElement(By.cssSelector("#login > form > div.loginTxtBtn.extraText > div > label:nth-child(2) > a"))
 				.click();
-		driver.findElement(
-				By.cssSelector("#content > form > table > tbody > tr:nth-child(1) > td > input[type=\"text\"]"))
-				.sendKeys(username);
-		driver.findElement(
-				By.cssSelector("#content > form > table > tbody > tr:nth-child(2) > td > input[type=\"text\"]"))
-				.sendKeys(email);
-		driver.findElement(By.cssSelector(
-				"driver.findElement(By.cssSelector(#login > form > div.loginTxtBtn.extraText > div > label:nth-child(2) > a")).submit();
+		java.util.Set<String> tabs = driver.getWindowHandles();
+		Iterator<String> i = ((java.util.Set<String>) tabs).iterator();
+		String main = i.next();
+		String child = i.next();
+		driver.switchTo().window(child);
+		System.out.println("Enter");
+		
+		driver.findElement(By.cssSelector("input[name='login']")).sendKeys(username);
+		
+		driver.findElement(By.cssSelector("input[name='mail']")).sendKeys(email);
 				
-		if (driver.findElement(By.cssSelector("h2.critical")).getText()
+		
+				driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[3]/td/input"))
+				.submit();
+
+		if (driver.findElement(By.xpath("")).getText()
 				.contains("Email address in the record does not match"))
 			return false;
 		else
 			return true;
+		
 	}
 
-	public String Login_panel_is_clicked() {
-		driver.findElement(By.cssSelector("a.active")).click();
-		String title = driver.getTitle();
-		return title;
+	public void Login_panel_is_clicked() {
+		this.tap();
+		driver.findElement(By.cssSelector("a[href='#panel1")).click();
+		
 
 	}
 
-	public String About_hris_is_clicked() {
-		driver.findElement(By.).click();
-	String	title=driver.getTitle();
-	return title;
+	public void About_hris_is_clicked() {
+		driver.findElement(By.cssSelector("a[href='#panel2")).click();
+	
 	
 
-}public String Celebration_is_clicked() {
-	driver.findElement(By.).click();
-String	title=driver.getTitle();
-return title;
+}
+	public void Celebration_is_clicked() {
+	driver.findElement(By.cssSelector("a[href='#panel3']")).click();
 
-	}public String QAIT_updates_is_Clicked_() {
-		driver.findElement(By.).click();
-	String	title=driver.getTitle();
-	return title;}
 
-	public String HR_Policy_is_clicked() {
-		driver.findElement(By.).click();
-	String	title=driver.getTitle();
-	return title;}
+	}
+	public void QAIT_updates_is_Clicked_() {
+		driver.findElement(By.cssSelector("a[href='#panel4'")).click();
+	}
+	public void HR_Policy_is_clicked() {
+		driver.findElement(By.cssSelector("a[href='#panel5")).click();
+}
+ 
+	public void foodMenuIsClicked() {
+		driver.findElement(By.cssSelector("a[href='#panel7")).click();
+	}
 
-	public String Food_menu_is_clicked() {
-		driver.findElement(By.).click();
-	String	title=driver.getTitle();
-	return title;}
-
-	public String Did_you_know_is_clicked() {
-		driver.findElement(By.).click();
-	String	title=driver.getTitle();
-	return title;
+	public void Did_you_know_is_clicked() {
+		driver.findElement(By.cssSelector("a[href='#panel6")).click();
+	
 	}
 }

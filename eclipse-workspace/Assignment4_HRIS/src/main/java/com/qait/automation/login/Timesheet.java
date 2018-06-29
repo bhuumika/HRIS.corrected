@@ -3,6 +3,9 @@ package com.qait.automation.login;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 
 
@@ -12,10 +15,13 @@ WebDriver driver;
 	public Timesheet(WebDriver driver) {
 	this.driver=driver;
 	}
-	public void logout() {
 	
-		driver.findElement(By.cssSelector("#page > div > div.header > div.col-sm-3.col-md-2.col-xs-2 > ul > li > a > img")).click();
-		driver.findElement(By.cssSelector("")).click();
+	public void logout() {
+		 driver.findElement(By.xpath("//*[@id=\"page\"]/div/div[1]/div[2]/ul/li/a/img")).click();
+		  WebDriverWait wait=new WebDriverWait(driver,10); 
+		  wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("fa")));
+		  driver.findElement(By.className("fa-sign-out")).click();
+		  Assert.assertEquals("https://hris.qainfotech.com/login.php",driver.getCurrentUrl());
 	}
 	
 }
